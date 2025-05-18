@@ -31,7 +31,7 @@ Este aplicativo calcula os rendimentos de um valor investido com base em taxas d
 https://github.com/Erickfgfg025/Calculadora-de-Rendimentos-.git
 
 # Acesse o diretório
-cd calculadora-investimentos
+cd Calculadora-de-Rendimentos-
 
 # Instale as dependências
 pip install -r requirements.txt
