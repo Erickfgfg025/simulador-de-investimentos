@@ -28,7 +28,7 @@ Este aplicativo calcula os rendimentos de um valor investido com base em taxas d
 
 ```bash
 # Clone o repositório
-git clone https://github.com/Erickfgfg025/calculadora-investimentos.git
+https://github.com/Erickfgfg025/Calculadora-de-Rendimentos-.git
 
 # Acesse o diretório
 cd calculadora-investimentos
