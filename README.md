@@ -22,7 +22,7 @@ Este aplicativo calcula os rendimentos de um valor investido com base em taxas d
 ## Tecnologias
 
 - Python
-- Kivy (para interface gráfica)
+- CustomTkinter (para interface gráfica)
 
 ## Como usar
 
