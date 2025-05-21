@@ -1,35 +1,44 @@
-from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.label import Label
-from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
+import customtkinter as ctk
 
+# Configurações iniciais
+ctk.set_appearance_mode("dark")  # ou "light"
+ctk.set_default_color_theme("blue")  # temas: blue, green, dark-blue
 
-class InvestmentCalculator(BoxLayout):
-    def __init__(self, **kwargs):
-        super().__init__(orientation='vertical', padding=20, spacing=10, **kwargs)
+class InvestmentApp(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+        self.title("Calculadora de Investimentos")
+        self.geometry("400x400")
+        self.resizable(False, False)
 
-        self.add_widget(Label(text="CALCULADORA DE INVESTIMENTOS", font_size=20, color=(1, 1, 0, 1)))
+        # Título
+        self.label_titulo = ctk.CTkLabel(self, text="CALCULADORA DE INVESTIMENTOS", font=ctk.CTkFont(size=18, weight="bold"))
+        self.label_titulo.pack(pady=(20, 10))
 
-        self.add_widget(Label(text="Quanto você quer investir?", color=(1, 0, 0, 1)))
-        self.entrada_valor = TextInput(hint_text="Ex: 1000", multiline=False, input_filter='float')
-        self.add_widget(self.entrada_valor)
+        # Valor investido
+        self.label_valor = ctk.CTkLabel(self, text="Quanto você quer investir?")
+        self.label_valor.pack()
+        self.entrada_valor = ctk.CTkEntry(self, placeholder_text="Ex: 1000")
+        self.entrada_valor.pack(pady=(0, 10))
 
-        self.add_widget(Label(text="Por quantos dias deseja investir?", color=(1, 0, 0, 1)))
-        self.entrada_dias = TextInput(hint_text="Ex: 180", multiline=False, input_filter='int')
-        self.add_widget(self.entrada_dias)
+        # Dias investidos
+        self.label_dias = ctk.CTkLabel(self, text="Por quantos dias deseja investir?")
+        self.label_dias.pack()
+        self.entrada_dias = ctk.CTkEntry(self, placeholder_text="Ex: 180")
+        self.entrada_dias.pack(pady=(0, 20))
 
-        self.resultado_label = Label(text="", font_size=18)
-        self.add_widget(self.resultado_label)
+        # Botão de calcular
+        self.botao_calcular = ctk.CTkButton(self, text="Calcular", command=self.calcular_investimento)
+        self.botao_calcular.pack(pady=10)
 
-        botao = Button(text="Calcular", size_hint=(1, 0.3))
-        botao.bind(on_press=self.calcular_investimento)
-        self.add_widget(botao)
+        # Resultado
+        self.resultado_label = ctk.CTkLabel(self, text="", font=ctk.CTkFont(size=14))
+        self.resultado_label.pack(pady=10)
 
-    def calcular_investimento(self, instance):
+    def calcular_investimento(self):
         try:
-            valor_investido = float(self.entrada_valor.text)
-            dias = int(self.entrada_dias.text)
+            valor_investido = float(self.entrada_valor.get())
+            dias = int(self.entrada_dias.get())
 
             cdi_anual = 14.65
             percentual_cdi = 100
@@ -40,15 +49,15 @@ class InvestmentCalculator(BoxLayout):
             rendimento_bruto = valor_investido * rentabilidade_ajustada
             valor_final = valor_investido + rendimento_bruto
 
-            self.resultado_label.text = f"Valor Final: R$ {valor_final:.2f}"
-        except:
-            self.resultado_label.text = "Erro nos valores. Verifique e tente novamente."
+            self.resultado_label.configure(
+                text=f"Valor Final: R$ {valor_final:.2f}\n"
+                     f"Rendimento: R$ {rendimento_bruto:.2f}\n"
+                     f"Rentabilidade: {rentabilidade_ajustada * 100:.2f}%"
+            )
+        except ValueError:
+            self.resultado_label.configure(text="Erro nos valores. Verifique e tente novamente.")
 
 
-class InvestmentApp(App):
-    def build(self):
-        return InvestmentCalculator()
-
-
-if __name__ == '__main__':
-    InvestmentApp().run()
+if __name__ == "__main__":
+    app = InvestmentApp()
+    app.mainloop()
