@@ -1,5 +1,5 @@
 
-# Calculadora de Investimentos
+# Simulador de Investimentos
 
 Aplicativo desenvolvido para simular o rendimento de investimentos baseados em CDI. Com ele, você pode inserir um valor e visualizar quanto teria ao final de um período, considerando a taxa de juros atual.
 
